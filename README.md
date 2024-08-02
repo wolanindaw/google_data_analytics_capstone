@@ -5,6 +5,5 @@ This is my Cyclistic Capstone Project in the form of a case study, the completio
 # Header
 
 
-## Subheader
 
 
