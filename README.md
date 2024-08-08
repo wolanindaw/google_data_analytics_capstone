@@ -21,7 +21,7 @@ This is my Cyclistic Capstone Project in the form of a case study, the completio
   - [Results](#results)
 - [Analysis](#analysis)
   - [Findings](#findings)
-  - [Discovery](#discovery)
+  - [Discoveries](#discoveries)
 - [Recommendations](#recommendations)
   - [Potential Courses of Actions](#potential-courses-of-actions)
 - [Conclusion](#conclusion)
