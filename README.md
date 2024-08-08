@@ -117,7 +117,7 @@ I imported the data to Power Query as a whole folder, containing 12 .csv files f
 ![start_null_values](assets/images/PQ3.jpg)
 ![start_null_values_2](assets/images/PQ4.jpg)
 ![start_null_values_count_rows](assets/images/PQ5.jpg)
-![end_null_values_count rows](assets/images/PQ8_end_station_nulls.jpg)
+![end_null_values_count rows](assets/images/PQ8_end_station_name_nulls.jpg)
 
 Using the 'Count rows' function, I have found that there are 875716 missing values in the 'start_station_name' column and 929202 missing values in the 'end_station_name' column.
 
