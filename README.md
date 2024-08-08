@@ -103,6 +103,7 @@ Some of the data visuals that may be appropriate for solving our business questi
 ## Data exploration
 
 I imported the data to Power Query as a whole folder, containing 12 .csv files from each month and merged them into a single table through the following steps:
+
 ![import_to_PQ](assets/images/PQ1.jpg)
 ![import_to_PQ_2](assets/images/PQ2.jpg)
 
@@ -139,6 +140,7 @@ For this case study, I have decided to keep all of the records, as most of the a
 - All data types should be appropriate for the contents of each column.
 
 Below is a picture of the schema for the data before cleaning:
+
 ![dirty_data_schema](assets/images/SQL1.jpg)
 
 What are the needed steps to cleand and shape the data into a desired format?
