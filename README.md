@@ -67,10 +67,10 @@ Some of the data visuals that may be appropriate for solving our business questi
 3. Split horizontal bar chart - presenting average ride duration per day of the week for each membership type
 4. Vertical bar charts - presenting which of the offered bike types are most frequently used
 5. Dashboard containing the following visuals:
-   - Line chart - presenting the most popular start times between each membership type
-   - Summary table/heat map - presenting seasonal activity of users from each membership type
-   - Treemap - presenting the most popular routes from each membership type
-   - Density map - presenting the most popular overall locations, with switching between each membership type functionality
+- Line chart - presenting the most popular start times between each membership type
+- Summary table/heat map - presenting seasonal activity of users from each membership type
+- Treemap - presenting the most popular routes from each membership type
+- Density map - presenting the most popular overall locations, with switching between each membership type functionality
 
 ## Tools
 
@@ -222,14 +222,3 @@ FROM
   `cyclistic-case-study-427019.Cyclistic_data_2023.df23_all`
 
 ```
-
-
-
-
-
-
-
-
-
-
-
