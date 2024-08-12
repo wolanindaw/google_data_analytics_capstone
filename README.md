@@ -401,10 +401,9 @@ ggplot(data = trip_data) +
 
 ```
 
-
-
-
-
-
-
+![Rplot1](assets/images/Rplot1.png)
+![Rplot2](assets/images/Rplot2.png)
+![Rplot3](assets/images/Rplot3.png)
+![Rplot4](assets/images/Rplot4.png)
+![Rplot5](assets/images/Rplot5.png)
 
