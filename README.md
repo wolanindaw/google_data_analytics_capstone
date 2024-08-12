@@ -407,3 +407,9 @@ ggplot(data = trip_data) +
 ![Rplot4](assets/images/Rplot4.png)
 ![Rplot5](assets/images/Rplot5.png)
 
+![Tableau_Dashboard](assets/images/Tableau_Dashboard.gif)
+
+
+
+
+
