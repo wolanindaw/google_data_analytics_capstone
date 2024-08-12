@@ -16,11 +16,11 @@ This is my Cyclistic Capstone Project in the form of a case study, the completio
   - [Data Exploration](#data-exploration)
   - [Data Cleaning](#data-cleaning)
   - [Data Transformation](#data-transformation)
-- [R code](#R_code)
-  - [Libraries](#libraries)
-  - [ggplot2 Visuals](#ggplot2_visuals)
+- [R code](#r-code)
+  - [Preparation](#preparation)
+  - [Calculation and Visuals](#calculation-and-visuals)
   - [Data Quality Tests](#data-quality-tests)
-- [Tableau Visualization](#tableau_visualization)
+- [Tableau Visualization](#tableau-visualization)
   - [Results](#results)
 - [Analysis](#analysis)
   - [Findings](#findings)
@@ -112,7 +112,7 @@ I imported the data to Power Query as a whole folder, containing 12 .csv files f
 
 - What are the inital observations with this dataset? What has caught my attention?
 
-1. Frist, using the 'Count rows' founction, I counted the total number of records, after checking for any initial errors:
+1. First, using the 'Count rows' founction, I counted the total number of records, after checking for any initial errors:
 
 ![count_total_rows](assets/images/PQ10_total_rows_deleted_errors.jpg)
    
@@ -225,3 +225,186 @@ FROM
   `cyclistic-case-study-427019.Cyclistic_data_2023.df23_all`
 
 ```
+
+Below is a picture of the schema for the data after cleaning and transformation:
+
+![clean_data_schema](assets/images/SQL2.jpg)
+
+# R code
+
+## Preparation
+
+In order to make the dataset useable in the RStudio and Tableau enviroments it is exported from BigQuery as a .csv file. Due to its size, it first has to be exported to an interconnected Google Drive, and then it can be downloaded locally.
+
+Load the following packages which suit our analysis approach and load our dataset:
+
+```R
+library(tidyverse) # collection of packages used to import, tidy, transform, visualize and model data
+library(ggrepel) # to repel overlapping text labels from the ggplot2 package from tidyverse
+library(scales) # override the default breaks, labels, transformations and palettes used for scales by ggplot2
+library(extrafont) # register custom fonts
+
+trip_data <- read_csv("Data_cleaned.csv")
+
+```
+
+## Calculation and Visuals
+
+```R
+counts <- trip_data %>%
+  group_by(MembershipType) %>%
+  count() %>%
+  ungroup() %>% 
+  mutate(perc = `n` / sum(`n`)) %>% 
+  arrange(perc) %>% 
+  mutate(labels = scales::percent(perc))
+
+positions <- counts %>% 
+  mutate(csum = rev(cumsum(rev(perc))), 
+         pos = perc/2 + lead(csum, 1),
+         pos = if_else(is.na(pos), perc/2, pos))
+
+ggplot(counts, aes(x = "", y = perc, fill = MembershipType)) +
+  geom_col(color = "white") +
+  geom_text(aes(label = comma(n)),
+            position = position_stack(vjust = 0.5), color = "white") +
+  coord_polar(theta = "y") +
+  scale_fill_brewer(palette = "Dark2") +
+  geom_label_repel(data = positions,
+                   aes(y = pos, label = labels),
+                   size = 4, nudge_x = 0.6, show.legend = FALSE, min.segment.length = Inf, color = "white", family = "Tahoma") +
+  ggtitle(paste("Total riders in 2023:", comma(nrow(trip_data)))) +
+  theme_void(base_family = "Tahoma") +  # Change base font family
+  theme(
+    plot.title = element_text(size = 14, face = "bold"),
+    legend.title = element_text(size = 12, face = "bold"),
+    legend.text = element_text(size = 10)
+  )
+
+days_descending <- c("Sunday", "Saturday", "Friday", "Thursday", "Wednesday", "Tuesday", "Monday")
+
+ggplot(data = trip_data) +
+  geom_bar(mapping = aes(x = factor(StartDay, level = days_descending), fill = MembershipType),
+           position = position_dodge()) +
+  geom_text(
+    stat = 'count', 
+    aes(x = factor(StartDay, levels = days_descending), label = comma(..count..), group = MembershipType), 
+    position = position_dodge(width = 0.9),
+    hjust = 1.5,
+    color = "white",
+    size = 3,
+    face = "bold",
+    family = "Tahoma"
+  ) +
+  xlab("Day of the week") + 
+  ylab("Count") +
+  scale_y_continuous(labels = comma) +
+  coord_flip() +
+  ggtitle("Daily Riders") +
+  scale_fill_brewer(palette = "Dark2") +
+  theme_minimal(base_family = "Tahoma") +  # Change base font family
+  theme(
+    plot.title = element_text(size = 14, face = "bold"),
+    axis.title.x = element_text(size = 12, face = "bold", margin = margin(t = 10)),  # Move x-axis title
+    axis.title.y = element_text(size = 12, face = "bold", margin = margin(r = 10)),  # Move y-axis title
+    axis.text = element_text(size = 10),
+    legend.title = element_text(size = 12, face = "bold"),
+    legend.text = element_text(size = 10)
+  )
+
+months_descending <- c("December", "November", "October", "September", "August", "July", "June", "May", "April", "March", "February", "January")
+
+ggplot(data = trip_data) +
+  geom_bar(mapping = aes(x = factor(StartMonth, level = months_descending), fill = MembershipType),
+           position = position_dodge()) +
+  geom_text(
+    stat = 'count', 
+    aes(x = factor(StartMonth, levels = months_descending), label = comma(..count..), group = MembershipType), 
+    position = position_dodge(width = 0.9),
+    hjust = 1.5,
+    color = "white",
+    size = 3,
+    face = "bold",
+    family = "Tahoma"
+  ) +
+  xlab("Month") + 
+  ylab("Count") +
+  scale_y_continuous(labels = comma) +
+  coord_flip() +
+  ggtitle("Monthly Riders") +
+  scale_fill_brewer(palette = "Dark2") +
+  theme_minimal(base_family = "Tahoma") +  # Change base font family
+  theme(
+    plot.title = element_text(size = 14, face = "bold"),
+    axis.title.x = element_text(size = 12, face = "bold", margin = margin(t = 10)),  # Move x-axis title
+    axis.title.y = element_text(size = 12, face = "bold", margin = margin(r = 10)),  # Move y-axis title
+    axis.text = element_text(size = 10),
+    legend.title = element_text(size = 12, face = "bold"),
+    legend.text = element_text(size = 10)
+  )
+
+averages <- trip_data %>%
+  group_by(StartDay, MembershipType) %>%
+  summarise(average_duration = mean(Duration)) %>% 
+  as.data.frame()
+
+ggplot(data = averages) +
+  geom_col(mapping = aes(x = factor(StartDay, level = days_descending), y = average_duration, fill = MembershipType)) +
+  geom_text(aes(x = factor(StartDay, level = days_descending), y = average_duration, label = round(average_duration, 1)), 
+            position = position_dodge(width = 0.9),
+            hjust = 2,
+            color = "white",
+            size = 3,
+            face = "bold",
+            family = "Tahoma"
+            ) +
+  coord_flip() + 
+  xlab("Day of the week") + 
+  ylab("Average ride duration (minutes)") + 
+  ggtitle("Average ride duration") +
+  facet_wrap(~MembershipType, ncol = 1) +
+  scale_fill_brewer(palette = "Dark2") +
+  theme_minimal(base_family = "Tahoma") +  # Change base font family
+  theme(
+    plot.title = element_text(size = 14, face = "bold"),
+    axis.title.x = element_text(size = 12, face = "bold", margin = margin(t = 10)),  # Move x-axis title
+    axis.title.y = element_text(size = 12, face = "bold", margin = margin(r = 10)),  # Move y-axis title
+    axis.text = element_text(size = 10),
+    legend.title = element_text(size = 12, face = "bold"),
+    legend.text = element_text(size = 10)
+  )
+   
+ggplot(data = trip_data) +
+  geom_bar(mapping = aes(x = BikeType, fill = MembershipType), position = position_dodge()) +
+  geom_text(stat = "count", aes(x = BikeType, label = comma(..count..), group = MembershipType), 
+            position = position_dodge(width = 0.9),
+            vjust = 2,
+            color = "white",
+            size = 3,
+            face = "bold",
+            family = "Tahoma"
+            ) +
+  xlab("Bike Type") +
+  ylab("Count") +
+  ggtitle("Bike types vs Membership type") +
+  scale_y_continuous(labels = comma) +
+  scale_fill_brewer(palette = "Dark2") +
+  theme_minimal(base_family = "Tahoma") +  # Change base font family
+  theme(
+    plot.title = element_text(size = 14, face = "bold"),
+    axis.title.x = element_text(size = 12, face = "bold", margin = margin(t = 10)),  # Move x-axis title
+    axis.title.y = element_text(size = 12, face = "bold", margin = margin(r = 10)),  # Move y-axis title
+    axis.text = element_text(size = 10),
+    legend.title = element_text(size = 12, face = "bold"),
+    legend.text = element_text(size = 10)
+  )
+
+```
+
+
+
+
+
+
+
+
