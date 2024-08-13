@@ -281,6 +281,11 @@ ggplot(counts, aes(x = "", y = perc, fill = MembershipType)) +
     legend.text = element_text(size = 10)
   )
 
+```
+![Rplot1](assets/images/Rplot1.png)
+
+
+```R
 days_descending <- c("Sunday", "Saturday", "Friday", "Thursday", "Wednesday", "Tuesday", "Monday")
 
 ggplot(data = trip_data) +
@@ -312,6 +317,11 @@ ggplot(data = trip_data) +
     legend.text = element_text(size = 10)
   )
 
+```
+![Rplot2](assets/images/Rplot2.png)
+
+
+```R
 months_descending <- c("December", "November", "October", "September", "August", "July", "June", "May", "April", "March", "February", "January")
 
 ggplot(data = trip_data) +
@@ -343,6 +353,10 @@ ggplot(data = trip_data) +
     legend.text = element_text(size = 10)
   )
 
+```
+![Rplot3](assets/images/Rplot3.png)
+
+```R
 averages <- trip_data %>%
   group_by(StartDay, MembershipType) %>%
   summarise(average_duration = mean(Duration)) %>% 
@@ -373,7 +387,12 @@ ggplot(data = averages) +
     legend.title = element_text(size = 12, face = "bold"),
     legend.text = element_text(size = 10)
   )
-   
+
+```
+![Rplot4](assets/images/Rplot4.png)
+
+
+```R   
 ggplot(data = trip_data) +
   geom_bar(mapping = aes(x = BikeType, fill = MembershipType), position = position_dodge()) +
   geom_text(stat = "count", aes(x = BikeType, label = comma(..count..), group = MembershipType), 
@@ -401,11 +420,10 @@ ggplot(data = trip_data) +
 
 ```
 
-![Rplot1](assets/images/Rplot1.png)
-![Rplot2](assets/images/Rplot2.png)
-![Rplot3](assets/images/Rplot3.png)
-![Rplot4](assets/images/Rplot4.png)
 ![Rplot5](assets/images/Rplot5.png)
+
+
+
 
 ![Tableau_Dashboard](assets/images/Tableau_Dashboard.gif)
 
