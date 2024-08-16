@@ -275,7 +275,7 @@ positions <- counts %>%
 # Split by membership type, map the plot
 ggplot(counts, aes(x = "", y = perc, fill = MembershipType)) +
   geom_col(color = "white") +
-# Create count labels in a centered position for each membership type
+# Create ride count labels in a centered position for each membership type
   geom_text(aes(label = comma(n)),
             position = position_stack(vjust = 0.5), color = "white") +
 # Introduce the polar coordinate system, resulting in a pie chart
@@ -297,17 +297,21 @@ ggplot(counts, aes(x = "", y = perc, fill = MembershipType)) +
 
 ```
 
-Running the code above results in creating the chart viewed below:
+Running the code above results in creating the following chart:
 ![Rplot1](assets/images/Rplot1.png)
 
 - Creating a horizontal bar chart - presenting the total ride count per day of the week for each membership type 
 
 ```R
+# Define the order of days to be viewed in the plot (order inverted due to later usage of the coord_flip() function)
 days_descending <- c("Sunday", "Saturday", "Friday", "Thursday", "Wednesday", "Tuesday", "Monday")
 
+# Bar chart plotting using ggplot2
 ggplot(data = trip_data) +
+# Split by day of the week and membership type, map the plot, use dodged/side-by-side bar position 
   geom_bar(mapping = aes(x = factor(StartDay, level = days_descending), fill = MembershipType),
            position = position_dodge()) +
+# Create ride count labels per day of the week for each membership type
   geom_text(
     stat = 'count', 
     aes(x = factor(StartDay, levels = days_descending), label = comma(..count..), group = MembershipType), 
@@ -318,9 +322,11 @@ ggplot(data = trip_data) +
     face = "bold",
     family = "Tahoma"
   ) +
+# Format the plot
   xlab("Day of the week") + 
   ylab("Count") +
   scale_y_continuous(labels = comma) +
+# Flip coordinates to convert to a horizontal bar chart
   coord_flip() +
   ggtitle("Daily Riders") +
   scale_fill_brewer(palette = "Dark2") +
@@ -335,16 +341,21 @@ ggplot(data = trip_data) +
   )
 
 ```
+Running the code above results in creating the following chart:
 ![Rplot2](assets/images/Rplot2.png)
 
-- Horizontal bar charts - presenting total ride counts per day of the week and per month for each membership type
+- Creating a horizontal bar chart - presenting the total ride count per month for each membership type 
   
 ```R
+# Define the order of months to be viewed in the plot (order inverted due to later usage of the coord_flip() function)
 months_descending <- c("December", "November", "October", "September", "August", "July", "June", "May", "April", "March", "February", "January")
 
+# Bar chart plotting using ggplot2
 ggplot(data = trip_data) +
+# Split by month and membership type, map the plot, use dodged/side-by-side bar position 
   geom_bar(mapping = aes(x = factor(StartMonth, level = months_descending), fill = MembershipType),
            position = position_dodge()) +
+# Create ride count labels per month for each membership type
   geom_text(
     stat = 'count', 
     aes(x = factor(StartMonth, levels = months_descending), label = comma(..count..), group = MembershipType), 
@@ -355,9 +366,11 @@ ggplot(data = trip_data) +
     face = "bold",
     family = "Tahoma"
   ) +
+# Format the plot
   xlab("Month") + 
   ylab("Count") +
   scale_y_continuous(labels = comma) +
+# Flip coordinates to convert to a horizontal bar chart
   coord_flip() +
   ggtitle("Monthly Riders") +
   scale_fill_brewer(palette = "Dark2") +
@@ -372,18 +385,23 @@ ggplot(data = trip_data) +
   )
 
 ```
+Running the code above results in creating the following chart:
 ![Rplot3](assets/images/Rplot3.png)
 
-- Split horizontal bar chart - presenting average ride duration per day of the week for each membership type
+- Creating a facet-wrapped horizontal bar chart - presenting average ride duration per day of the week for each membership type
 
 ```R
+# Calculate the average ride duration for each combination of day of the week and membership type
 averages <- trip_data %>%
   group_by(StartDay, MembershipType) %>%
   summarise(average_duration = mean(Duration)) %>% 
   as.data.frame()
 
+# Bar chart plotting using ggplot2
 ggplot(data = averages) +
+# Split by day of the week and membership type, map the plot
   geom_col(mapping = aes(x = factor(StartDay, level = days_descending), y = average_duration, fill = MembershipType)) +
+# Create average ride duration labels for each bar with adequate position adjustments and formatting
   geom_text(aes(x = factor(StartDay, level = days_descending), y = average_duration, label = round(average_duration, 1)), 
             position = position_dodge(width = 0.9),
             hjust = 2,
@@ -392,10 +410,13 @@ ggplot(data = averages) +
             face = "bold",
             family = "Tahoma"
             ) +
+# Flip coordinates to convert to a horizontal bar chart
   coord_flip() + 
+# Additional formatting
   xlab("Day of the week") + 
   ylab("Average ride duration (minutes)") + 
   ggtitle("Average ride duration") +
+# Split plots to create separate ones for each membership type, stack them vertically
   facet_wrap(~MembershipType, ncol = 1) +
   scale_fill_brewer(palette = "Dark2") +
   theme_minimal(base_family = "Tahoma") +  # Change base font family
@@ -409,13 +430,17 @@ ggplot(data = averages) +
   )
 
 ```
+Running the code above results in creating the following chart:
 ![Rplot4](assets/images/Rplot4.png)
 
-- Vertical bar charts - presenting which of the offered bike types are most frequently used
+- Creating a vertical bar chart - presenting which of the offered bike types are most frequently used
 
 ```R   
+# Bar chart plotting using ggplot2
 ggplot(data = trip_data) +
+# Split by bike type and membership type, use dodged/side-by-side bar position
   geom_bar(mapping = aes(x = BikeType, fill = MembershipType), position = position_dodge()) +
+# Create count labels for each bar with adequate position adjustments and formatting
   geom_text(stat = "count", aes(x = BikeType, label = comma(..count..), group = MembershipType), 
             position = position_dodge(width = 0.9),
             vjust = 2,
@@ -424,6 +449,7 @@ ggplot(data = trip_data) +
             face = "bold",
             family = "Tahoma"
             ) +
+# Additional formatting
   xlab("Bike Type") +
   ylab("Count") +
   ggtitle("Bike types vs Membership type") +
@@ -440,7 +466,7 @@ ggplot(data = trip_data) +
   )
 
 ```
-
+Running the code above results in creating the following chart:
 ![Rplot5](assets/images/Rplot5.png)
 
 
