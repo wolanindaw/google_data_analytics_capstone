@@ -23,11 +23,9 @@ This is my Cyclistic Capstone Project in the form of a case study, the completio
   - [Results](#results)
   - [Setup and Tests](#setup-and-tests)
 - [Analysis](#analysis)
-  - [Findings](#findings)
-  - [Discoveries](#discoveries)
+  - [Key Findings](#key-findings)
 - [Recommendations](#recommendations)
   - [Potential Courses of Actions](#potential-courses-of-actions)
-- [Conclusion](#conclusion)
 
 
 # Objective
@@ -485,7 +483,7 @@ It provides a clear represantation of each membership type user group and their 
   - Density map - presenting the most popular overall locations, with switching between each membership type functionality
 
 The dashboard can also be interacted with using the following link:
-
+https://public.tableau.com/views/BikeRentalAnalysisDawidWolanin/Dashboard1?:language=en-US&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link
 
 ## Setup and Tests
 
@@ -557,7 +555,18 @@ With the data prepared for further visualization purposes, the following steps w
 
 # Analysis
 
+## Key Findings
 
+- There were over 5,7 Million trips using Cyclistic in 2023. 64% were completed by annual members, 36% by casual riders.
+- Casual riders use the app more on the weekends, whereas the annual members take more trips during weekdays on their daily commute to work and school, especially in the central area of the city, as backed by the density map visualizations.
+- The Cyclistic bike-sharing service is at its popularity peak during summer months. Casual riding falls off drastically during winter months.
+- Casual riders take about twice as longer trips on average than annual members. The longest trips for casuals occur on weekend (over 30 minute on average). Members tend not to take trips longer than 15 minutes.
+- Casual riders are more keen to try out electric bikes, members take about as many trips using regular bikes as with e-bikes.
+- The most popular ride start times for annual members are 8 AM and 5 PM with large popularity spikes taking place. Casuals also hit their peak popularity at 5 PM, which could be the people who do not want to be stuck in traffic on their way back from work.
+- The most popular routes for annual members start from one place and end in an another, which clearly communicates that they use the bikes to get to their workplace or other appointments located around the city center. The casuals however like to start and end their tripes at the same station, Streeter Dr & Grand Ave being a clear winner. This suggests using the bikes for leisure or maybe sightseeing, within the tourist demographic.
+- Casual rides are more north-central based and member rides' locations shift towards southern parts of the city.
+
+# Recommendations
 
 
 
