@@ -520,5 +520,46 @@ Next, appropriate geographic data types, specific to the Tableau enviroment, wer
 
 ![Tableau5](assets/images/Tableau5.jpg)
 
+### Worksheet setup
+
+With the data prepared for further visualization purposes, the following steps were taken to create the dashboard:
+
+1. Start time line chart:
+- Hour from StartTime set to Columns,
+- MembershipType count measure set to Rows,
+- MembershipType set to the Color Mark.
+
+![Tableau1](assets/images/Tableau1.jpg)
+
+2. Month heatmap table:
+- StartMonth set to Columns,
+- MembershipType set to Rows,
+- MembershipType count measure set to the Color and Label Marks.
+  
+![Tableau2](assets/images/Tableau2.jpg)
+
+3. Top 10 routes treemap:
+- MembershipType count measure set to the Color and Label Marks,
+- MembershipType and RouteName set to the Label mark,
+- MembershipType filter applied with a toggle switch,
+- Introduced index() function, used as a filter, which contains a Table Calculation, indexing the records by most popular routes, resetting when it encounters a change in membership type.
+
+![Tableau3](assets/images/Tableau3.jpg)
+
+4. Top location density map:
+- Similar setup to previous worsheet with indexing records,
+- Created calculated fields: Start Point and Return Point, aggregaring longitude and longitude values into one entity, which are then pasted onto the map on separate Marks Layers.
+
+![Tableau7](assets/images/Tableau7.jpg)
+![Tableau8](assets/images/Tableau8.jpg)
+![Tableau4](assets/images/Tableau4.jpg)
+
+
+# Analysis
+
+
+
+
+
 
 
