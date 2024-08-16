@@ -19,9 +19,9 @@ This is my Cyclistic Capstone Project in the form of a case study, the completio
 - [R code](#r-code)
   - [Preparation](#preparation)
   - [Calculation and Visuals](#calculation-and-visuals)
-  - [Data Quality Tests](#data-quality-tests)
-- [Tableau Visualization](#tableau-visualization)
+- [Tableau Dashboard](#tableau-dashboard)
   - [Results](#results)
+  - [Setup and Tests](#setup-and-tests)
 - [Analysis](#analysis)
   - [Findings](#findings)
   - [Discoveries](#discoveries)
@@ -250,29 +250,43 @@ trip_data <- read_csv("Data_cleaned.csv")
 
 ## Calculation and Visuals
 
+- Creating a pie chart - presenting the total ride counts per membership type
+
 ```R
+# Group the dataset by membership type and count the occurrences of each type
 counts <- trip_data %>%
   group_by(MembershipType) %>%
   count() %>%
-  ungroup() %>% 
-  mutate(perc = `n` / sum(`n`)) %>% 
-  arrange(perc) %>% 
+  ungroup() %>%
+# Calculate the percentage for each membership type relative to the total ride count
+  mutate(perc = `n` / sum(`n`)) %>%
+# Arrange the membership types by their percentage in ascending order
+  arrange(perc) %>%
+# Create a new column with adequately formatted percentages
   mutate(labels = scales::percent(perc))
 
+# Calculate positions for centered percentage label placement
 positions <- counts %>% 
   mutate(csum = rev(cumsum(rev(perc))), 
          pos = perc/2 + lead(csum, 1),
          pos = if_else(is.na(pos), perc/2, pos))
 
+# Pie chart plotting using ggplot2
+# Split by membership type, map the plot
 ggplot(counts, aes(x = "", y = perc, fill = MembershipType)) +
   geom_col(color = "white") +
+# Create count labels in a centered position for each membership type
   geom_text(aes(label = comma(n)),
             position = position_stack(vjust = 0.5), color = "white") +
+# Introduce the polar coordinate system, resulting in a pie chart
   coord_polar(theta = "y") +
+# Choose a predefined color palette
   scale_fill_brewer(palette = "Dark2") +
+# Create percentage labels, using previously calculated positions, repel them to avoid overlap
   geom_label_repel(data = positions,
                    aes(y = pos, label = labels),
                    size = 4, nudge_x = 0.6, show.legend = FALSE, min.segment.length = Inf, color = "white", family = "Tahoma") +
+# Additional formatting
   ggtitle(paste("Total riders in 2023:", comma(nrow(trip_data)))) +
   theme_void(base_family = "Tahoma") +  # Change base font family
   theme(
@@ -282,8 +296,11 @@ ggplot(counts, aes(x = "", y = perc, fill = MembershipType)) +
   )
 
 ```
+
+Running the code above results in creating the chart viewed below:
 ![Rplot1](assets/images/Rplot1.png)
 
+- Creating a horizontal bar chart - presenting the total ride count per day of the week for each membership type 
 
 ```R
 days_descending <- c("Sunday", "Saturday", "Friday", "Thursday", "Wednesday", "Tuesday", "Monday")
@@ -320,7 +337,8 @@ ggplot(data = trip_data) +
 ```
 ![Rplot2](assets/images/Rplot2.png)
 
-
+- Horizontal bar charts - presenting total ride counts per day of the week and per month for each membership type
+  
 ```R
 months_descending <- c("December", "November", "October", "September", "August", "July", "June", "May", "April", "March", "February", "January")
 
@@ -355,6 +373,8 @@ ggplot(data = trip_data) +
 
 ```
 ![Rplot3](assets/images/Rplot3.png)
+
+- Split horizontal bar chart - presenting average ride duration per day of the week for each membership type
 
 ```R
 averages <- trip_data %>%
@@ -391,6 +411,7 @@ ggplot(data = averages) +
 ```
 ![Rplot4](assets/images/Rplot4.png)
 
+- Vertical bar charts - presenting which of the offered bike types are most frequently used
 
 ```R   
 ggplot(data = trip_data) +
