@@ -470,11 +470,55 @@ Running the code above results in creating the following chart:
 ![Rplot5](assets/images/Rplot5.png)
 
 
+# Tableau Dashboard
 
+## Results
+
+- What does the dashboard look like and how does it operate?
 
 ![Tableau_Dashboard](assets/images/Tableau_Dashboard.gif)
 
+It provides a clear represantation of each membership type user group and their respective recurring beahviours through these four visualizations:
+  - Line chart - presenting the most popular start times between each membership type
+  - Summary table/heat map - presenting seasonal activity of users from each membership type
+  - Treemap - presenting the most popular routes from each membership type
+  - Density map - presenting the most popular overall locations, with switching between each membership type functionality
 
+The dashboard can also be interacted with using the following link:
+
+
+## Setup and Tests
+
+### Data preparation
+
+During the setup of Tableau worksheets, needed to create the dashboard, there were some issues discovered with the dataset that have been overlooked during data exploration and cleaning. The problem lied within geo-location columns, containing latitude and longitude values for each route's start and end points. These values were not considered up to this point in the analysis process.
+
+The problem lied with slight, insignificant variations of latitude and longitude (by +/- 0.00001). When creating the density map, containing location points from only the most popular routes, there were more points plotted than expected. It turned out, each occurence off a single route was connected to a slightly different value, rather than the same one.
+
+The problem was most likely a result of geo-location data collection from the users, who were starting and ending their bike rides at certain station, but their GPS location of every user was shifted from each other by a small, insignificant to our research amount.
+
+To combat that, a small subset was created with distinct latitude and longitude values, rounded to the third decimal point and assigned to distinct routes, through the following query:
+
+```sql
+SELECT
+DISTINCT RouteName,
+ROUND(StartLat, 3) AS sLatitude,
+ROUND(StartLng, 3) AS sLongitude,
+ROUND(ReturnLat, 3) AS rLatitude,
+ROUND(ReturnLng, 3) AS rLongitude
+
+FROM
+  `cyclistic-case-study-427019.Cyclistic_data_2023.df23_cleaned`
+
+```
+
+This subset was later downloaded as a .csv file and named 'locations_cleaned.csv'. It was then joined to the original dataset, using an INNER JOIN by the RouteName column, within the Tableau enviroment:
+
+![Tableau6](assets/images/Tableau6.jpg)
+
+Next, appropriate geographic data types, specific to the Tableau enviroment, were set:
+
+![Tableau5](assets/images/Tableau5.jpg)
 
 
 
