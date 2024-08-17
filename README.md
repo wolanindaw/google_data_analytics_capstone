@@ -602,6 +602,7 @@ With the data prepared for further visualization purposes, the following steps w
 - This would allow Cyclistic to develop more targeted and effective marketing campaigns to encourage casual riders to become members.
 
 
+
 2. The second course of action would be to forge ahead with a conversion strategy while recognizing the potential risks of a premature marketing plan.
 
 - Create more value for current-tier annual members by including unlimited 3 hour rides instead of 45 minutes.
