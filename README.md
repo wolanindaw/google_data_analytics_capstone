@@ -489,7 +489,7 @@ It provides a clear represantation of each membership type user group and their 
   - Density map - presenting the most popular overall locations, with switching between each membership type functionality
 
 The dashboard can also be interacted with using the following link:
-https://public.tableau.com/views/BikeRentalAnalysisDawidWolanin/Dashboard1?:language=en-US&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link
+[Tableau Public Dawid Wolanin](https://public.tableau.com/views/BikeRentalAnalysisDawidWolanin/Dashboard1?:language=en-US&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link)
 
 
 ## Setup and Tests
