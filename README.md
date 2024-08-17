@@ -26,6 +26,7 @@ This is my Cyclistic Capstone Project in the form of a case study, the completio
   - [Key Findings](#key-findings)
 - [Recommendations](#recommendations)
   - [Potential Courses of Actions](#potential-courses-of-actions)
+- [Conclusion](#conclusion)
 
 
 # Objective
@@ -228,7 +229,10 @@ Below is a picture of the schema for the data after cleaning and transformation:
 
 ![clean_data_schema](assets/images/SQL2.jpg)
 
+
+
 # R code
+
 
 ## Preparation
 
@@ -245,6 +249,7 @@ library(extrafont) # register custom fonts
 trip_data <- read_csv("Data_cleaned.csv")
 
 ```
+
 
 ## Calculation and Visuals
 
@@ -470,6 +475,7 @@ Running the code above results in creating the following chart:
 
 # Tableau Dashboard
 
+
 ## Results
 
 - What does the dashboard look like and how does it operate?
@@ -484,6 +490,7 @@ It provides a clear represantation of each membership type user group and their 
 
 The dashboard can also be interacted with using the following link:
 https://public.tableau.com/views/BikeRentalAnalysisDawidWolanin/Dashboard1?:language=en-US&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link
+
 
 ## Setup and Tests
 
@@ -517,6 +524,7 @@ This subset was later downloaded as a .csv file and named 'locations_cleaned.csv
 Next, appropriate geographic data types, specific to the Tableau enviroment, were set:
 
 ![Tableau5](assets/images/Tableau5.jpg)
+
 
 ### Worksheet setup
 
@@ -558,17 +566,65 @@ With the data prepared for further visualization purposes, the following steps w
 ## Key Findings
 
 - There were over 5,7 Million trips using Cyclistic in 2023. 64% were completed by annual members, 36% by casual riders.
+  
 - Casual riders use the app more on the weekends, whereas the annual members take more trips during weekdays on their daily commute to work and school, especially in the central area of the city, as backed by the density map visualizations.
+  
 - The Cyclistic bike-sharing service is at its popularity peak during summer months. Casual riding falls off drastically during winter months.
+  
 - Casual riders take about twice as longer trips on average than annual members. The longest trips for casuals occur on weekend (over 30 minute on average). Members tend not to take trips longer than 15 minutes.
+  
 - Casual riders are more keen to try out electric bikes, members take about as many trips using regular bikes as with e-bikes.
+  
 - The most popular ride start times for annual members are 8 AM and 5 PM with large popularity spikes taking place. Casuals also hit their peak popularity at 5 PM, which could be the people who do not want to be stuck in traffic on their way back from work.
+  
 - The most popular routes for annual members start from one place and end in an another, which clearly communicates that they use the bikes to get to their workplace or other appointments located around the city center. The casuals however like to start and end their tripes at the same station, Streeter Dr & Grand Ave being a clear winner. This suggests using the bikes for leisure or maybe sightseeing, within the tourist demographic.
+  
 - Casual rides are more north-central based and member rides' locations shift towards southern parts of the city.
 
 # Recommendations
 
+## Potential Courses of Actions
+
+1. Reiteration
+
+- There is some risk involved with moving forward with a conversion strategy from casual users to annual members.
+
+- There may be more than meets the eye - even though the majority of bike rides came from annual members, the most popular overall route by a large margin was in the casual user's group, starting and ending at the same station.
+
+- The data gathered was sufficient enogh to create some generalizations about each membership group, but it is not fully conclusive.
+
+- User demographics are a key component that can have a significant impact on further development of the user base, Cyclistic's clients, and thus the company's profit.
+
+- It might be worth considering to reiterate the data analysis process and dig deeper into why members and casuals behave the way they do to gather the required insights to inform a precise data-driven decision.
+
+- This could involve conducting further research to better understand the motivations and behaviors of both members and casual riders. The research should provide more qualitative data from unbiased surveys, conducted through the Cyclistic app or other means.
+
+- This would allow Cyclistic to develop more targeted and effective marketing campaigns to encourage casual riders to become members.
 
 
+2. The second course of action would be to forge ahead with a conversion strategy while recognizing the potential risks of a premature marketing plan.
+
+- Create more value for current-tier annual members by including unlimited 3 hour rides instead of 45 minutes.
+  
+- Run location-targeted marketing campaigns in places with highest casual rider activity.
+
+- Consider alternatives to full conversions such as new price offerings, e.g. a weekend pass: an annually billed subscription service providing an unlimited pass for every weekend.
+  
+- Another alternative to a full conversionL 3-month memberships for people who mostly use bike-sharing in the summer months, or an annual membership with ride times unlimited in the summer, but limited to 30 minutes in winter, spring and autumn.
+  
+- Run cost-optimized surveys, resulting in conveying interesting statistics that matter to casual riders, such as costs saved on fuel, calories burnt, CO2 emmisions saved. Include this additional functionality only in the annually billed membership tiers.
+  
+- Introduce higher priced offerings with additional privileges: bike reservations during peak season and peak hours, calculating range of electric bikes.
+  
+- Provide members with longer time limit for e-bikes usagem as it is the most popular bike type among casual users.
+
+
+# Conclusion
+
+- The provided data allows us to distinguish how casual riders and annual members use Cyclistic's bike-sharing service differently, but not conclusively why.
+  
+- A more detailed research and at least additional surveys would be recommended for more accurate strategy of conversion development. There are many assumptions stated during the analysis phase that ideally should be backed by more qualitative data about user motivations and demographics.
+  
+- The decision of which course of action to take depends on all of the shareholders' specific goals, resources, and risk tolerance.
 
 
